@@ -1,38 +1,20 @@
-import { useState } from "react";
-import TaskList from "./components/TaskList/TaskList";
-import TaskItem from "./components/TaskItem/TaskItem";
-import TaskFilter from "./components/TaskFilter/TaskFilter";
-import AddItem from "./components/AddItem/AddItem";
 import "./App.css";
+import TodoInput from "./components/TodoInput";
+import TodoList from "./components/TodoList";
+import FilterButton from "./components/FilterButton";
+import ThemeToggleButton from "./components/ThemeToggleButton";
+import { useContext } from "react";
+import { ThemeContext } from "./contexts/ThemeContext";
 
-function App() {
-  const [todoList, setTodoList] = useState([
-    {
-      id: 1,
-      text: "clean house",
-      completed: false,
-    },
+export default function App() {
+  const { theme } = useContext(ThemeContext); // This must match the provider import exactly
 
-    {
-      id: 2,
-      text: "do homework",
-      completed: false,
-    },
-
-    {
-      id: 3,
-      text: "have fun",
-      completed: true,
-    },
-    
-  ]);
   return (
-    <>
-      <AddItem items={todoList} setItems={setTodoList} />
-      <TaskFilter items={todoList} />
-      <TaskList items={todoList} />
-    </>
+    <div className={`app min-h-screen p-6 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+      <ThemeToggleButton />
+      <TodoInput />
+      <FilterButton />
+      <TodoList />
+    </div>
   );
 }
-
-export default App;
